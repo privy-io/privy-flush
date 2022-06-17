@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { FieldInstance } from "@privy-io/privy-browser";
-import { useSession } from "../components/session";
+import { useSession } from "../components/Session";
 
 function HomePage() {
   const session = useSession();

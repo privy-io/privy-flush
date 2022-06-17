@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { useSession, isMetaMaskEnabled } from "../components/session";
+import { useSession, isMetaMaskEnabled } from "../components/Session";
 import styles from "../styles/Home.module.css";
 
 export async function getStaticProps() {

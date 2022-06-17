@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
 import "../styles/users.css";
-import { useSession } from "../components/session";
+import { useSession } from "../components/Session";
 
 declare global {
   interface Window {

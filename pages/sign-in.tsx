@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
-import { useSession, isMetaMaskEnabled } from "../components/session";
+import { useSession, isMetaMaskEnabled } from "../components/Session";
 import { useRouter } from "next/router";
-import FlushLogo from "../components/flush";
+import FlushLogo from "../components/FlushLogo";
+import FileIcon from "../components/FileIcon";
+import SignIcon from "../components/SignIcon";
 
 export async function getStaticProps() {
   return {
@@ -40,10 +42,11 @@ function SignIn() {
           </div>
           <div className={styles.filebox}>
             <button className={styles.uploadbutton} disabled>
+              <FileIcon></FileIcon>
               Select files to send
             </button>
           </div>
-          <div className={styles.signbox}>
+          <div className={styles.inbox}>
             <h1>Share files with PrivyFlush</h1>
             <p className={styles.description}>
               PrivyFlush allows you to share files with your friends. Everything
@@ -59,6 +62,7 @@ function SignIn() {
               }}
             >
               Sign In With Ethereum
+              <SignIcon></SignIcon>
             </button>
           </div>
         </div>

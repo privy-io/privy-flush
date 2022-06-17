@@ -12,6 +12,15 @@
   top: 50%;
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg) translateY(-50%);
+  }
+  to {
+    transform: rotate(360deg) translateY(-50%);
+  }
+}
+
 .outer {
   display: flex;
   flex-direction: column;
@@ -40,7 +49,7 @@
   background: radial-gradient(rgba(65, 50, 128, 0.85), rgba(22, 11, 69, 0.85));
 }
 .filebox,
-.signbox {
+.inbox {
   border-radius: 12px;
   width: 100%;
   height: 100%;
@@ -55,11 +64,17 @@
   max-width: 386px;
 }
 
-.signbox {
+.inbox {
   border: 1px solid white;
   max-width: 490px;
   padding: 34px;
   color: white;
+  font-family: "Adelle Sans";
+  font-size: 14px;
+}
+
+.inbox h1 {
+  font-size: 28px;
 }
 
 .uploadbutton {
@@ -72,8 +87,8 @@
   border-radius: 5px;
   text-align: center;
   color: #160b45;
-  /* TODO ask Ben how his font import works */
   font-family: "Adelle Sans Semibold";
+  font-size: 15px;
 }
 .uploadbutton:hover,
 .uploadbutton:focus {
@@ -90,6 +105,8 @@
   width: 100%;
   height: 41px;
   border: 1px solid white;
+  font-family: "Adelle Sans Semibold";
+  font-size: 15px;
 }
 
 .signbutton:hover,
@@ -104,11 +121,8 @@
   margin-bottom: 30px;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg) translateY(-50%);
-  }
-  to {
-    transform: rotate(360deg) translateY(-50%);
-  }
+.icon {
+  display: inline-block;
+  color: inherit;
+  margin: 8px;
 }
