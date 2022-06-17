@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 @font-face {
   font-family: "Adelle Sans";
   src: url("/fonts/AdelleSans-Regular.woff2") format("woff2"),
@@ -34,7 +38,6 @@ button {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-
 
 button:focus {
   outline: 1px solid #fff;

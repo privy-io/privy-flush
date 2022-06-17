@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { useSession, isMetaMaskEnabled } from "../components/session";
 import { useRouter } from "next/router";
+import FlushLogo from "../components/flush";
 
 export async function getStaticProps() {
   return {
@@ -22,6 +23,7 @@ function SignIn() {
     }
 
     function onFailure(error: Error) {
+      console.error(error);
       setSignInError(error);
     }
 
@@ -29,30 +31,36 @@ function SignIn() {
   }
 
   return (
-    <div className={styles.outer}>
-      <div className={styles.inner}>
-        <div className={styles.filebox}>
-          <button className={styles.uploadbutton} disabled>
-            Select files to send
-          </button>
-        </div>
-        <div className={styles.signbox}>
-          <h1>Share files with PrivyFlush</h1>
-          <p className={styles.description}>
-            PrivyFlush allows you to share files with your friends. Everything
-            is encrypted end-to-end by default when using Privy so storing data
-            securely is as simple as a single API call.
-          </p>
-          <p>To view files that have been sent to you, sign in below!</p>
-          <button
-            className={styles.signbutton}
-            onClick={(e) => {
-              e.preventDefault();
-              onSubmit();
-            }}
-          >
-            Sign In With Ethereum
-          </button>
+    <div>
+      <div className={styles.toilet}></div>
+      <div className={styles.outer}>
+        <div className={styles.inner}>
+          <div className={styles.logo}>
+            <FlushLogo></FlushLogo>
+          </div>
+          <div className={styles.filebox}>
+            <button className={styles.uploadbutton} disabled>
+              Select files to send
+            </button>
+          </div>
+          <div className={styles.signbox}>
+            <h1>Share files with PrivyFlush</h1>
+            <p className={styles.description}>
+              PrivyFlush allows you to share files with your friends. Everything
+              is encrypted end-to-end by default when using Privy so storing
+              data securely is as simple as a single API call.
+            </p>
+            <p>To view files that have been sent to you, sign in below!</p>
+            <button
+              className={styles.signbutton}
+              onClick={(e) => {
+                e.preventDefault();
+                onSubmit();
+              }}
+            >
+              Sign In With Ethereum
+            </button>
+          </div>
         </div>
       </div>
     </div>

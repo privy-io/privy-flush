@@ -1,14 +1,35 @@
+.toilet {
+  position: fixed;
+  left: -10vw;
+  width: 120vw;
+  height: 120vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../assets/water.jpg");
+  animation: spin 120s infinite linear;
+  transform: translateY(-50%);
+  transform-origin: center 0;
+  top: 50%;
+}
+
 .outer {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: no-repeat;
-  background-size: cover;
-  background-image: url("../assets/water-01\ 1.png");
+}
+
+.logo {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 187px;
+  height: 48px;
 }
 
 .inner {
+  position: relative;
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
@@ -42,6 +63,8 @@
 }
 
 .uploadbutton {
+  pointer-events: none;
+  opacity: 0.5;
   max-width: 322px;
   width: 100%;
   height: 41px;
@@ -79,4 +102,13 @@
 .description {
   margin-top: 16px;
   margin-bottom: 30px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg) translateY(-50%);
+  }
+  to {
+    transform: rotate(360deg) translateY(-50%);
+  }
 }
