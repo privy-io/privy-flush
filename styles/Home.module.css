@@ -126,3 +126,7 @@
   color: inherit;
   margin: 8px;
 }
+
+.hidden {
+  display: none;
+}

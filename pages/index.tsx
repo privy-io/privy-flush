@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { FieldInstance } from "@privy-io/privy-browser";
 import { useSession } from "../components/Session";
+import styles from "../styles/Home.module.css";
+import FlushLogo from "../components/FlushLogo";
+import FileIcon from "../components/FileIcon";
 
 function HomePage() {
   const session = useSession();
@@ -53,20 +56,35 @@ function HomePage() {
         <title> PrivyFlush </title>
       </Head>
       <main>
-        <InboxShow address={session.address} inboxUrl={inboxUrl} />
-        <UploadShow address={session.address} setUploadedFile={setUpload} />
-        {uploadedFile ? (
-          <SendShow uploadedFile={uploadedFile} onSend={onSend} />
-        ) : null}
+        <div className={styles.toilet}></div>
+        <div className={styles.outer}>
+          <div className={styles.inner}>
+            <div className={styles.logo}>
+              <FlushLogo></FlushLogo>
+            </div>
+            <div className={styles.filebox}>
+              <UploadShow
+                address={session.address}
+                setUploadedFile={setUpload}
+              />
+              {uploadedFile ? (
+                <SendShow uploadedFile={uploadedFile} onSend={onSend} />
+              ) : null}
+            </div>
+            <div className={styles.inbox}>
+              <Inbox address={session.address} inboxUrl={inboxUrl} />
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
 }
 
-function InboxShow(props: { address: string; inboxUrl: string | null }) {
+function Inbox(props: { address: string; inboxUrl: string | null }) {
   return (
     <div>
-      <h1>PrivyFlush - Inbox for {props.address}</h1>
+      <h1>Your Inbox </h1>
       {props.inboxUrl ? <a href={props.inboxUrl!}> Download </a> : null}
     </div>
   );
@@ -85,7 +103,11 @@ function UploadShow(props: {
   return (
     <div>
       <div>
-        <input type="file" onChange={onChange} />
+        <button className={styles.uploadbutton}>
+          <FileIcon></FileIcon>
+          Select files to send
+        </button>
+        <input type="file" onChange={onChange} className={styles.hidden} />
       </div>
     </div>
   );
