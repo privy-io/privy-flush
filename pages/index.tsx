@@ -101,13 +101,13 @@ function UploadShow(props: {
   };
 
   return (
-    <>
-      <button className={styles.uploadbutton}>
+    <button className={styles.uploadbutton}>
+      <input type="file" id="file-btn" onChange={onChange} hidden />
+      <label htmlFor="file-btn">
         <FileIcon></FileIcon>
         Select files to send
-      </button>
-      <input type="file" onChange={onChange} className={styles.hidden} />
-    </>
+      </label>
+    </button>
   );
 }
 

@@ -41,7 +41,7 @@ function SignIn() {
             <FlushLogo></FlushLogo>
           </div>
           <div className={styles.filebox}>
-            <button className={styles.uploadbutton} disabled>
+            <button className={styles["uploadbutton-disabled"]} disabled>
               <FileIcon></FileIcon>
               Select files to send
             </button>
