@@ -77,9 +77,8 @@
   font-size: 28px;
 }
 
-.uploadbutton {
-  pointer-events: none;
-  opacity: 0.5;
+.uploadbutton,
+.uploadbutton-disabled {
   max-width: 322px;
   width: 100%;
   height: 41px;
@@ -90,6 +89,12 @@
   font-family: "Adelle Sans Semibold";
   font-size: 15px;
 }
+
+.uploadbutton-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .uploadbutton:hover,
 .uploadbutton:focus {
   border: 1px solid white;
@@ -132,8 +137,4 @@
   top: 3px;
   display: inline-block;
   color: inherit;
-}
-
-.hidden {
-  display: none;
 }
