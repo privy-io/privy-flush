@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 * {
   box-sizing: border-box;
 }
@@ -24,19 +20,17 @@
   font-display: swap;
 }
 
-/* Remove default button styling */
 button {
-  display: inline-block;
-  border: none;
-  margin: 0;
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 1rem;
+  font-family: inherit; /* For all browsers */
+  font-size: 100%; /* For all browsers */
+  line-height: 1.15; /* For all browsers */
+  margin: 0; /* Firefox and Safari have margin */
+  overflow: visible; /* Edge hides overflow */
+  text-transform: none; /* Firefox inherits text-transform */
+  -webkit-appearance: button; /* Safari otherwise prevents some styles */
+  transition: 250ms ease-in-out, transform 150ms ease;
   cursor: pointer;
-  text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  border: none;
 }
 
 button:focus {
