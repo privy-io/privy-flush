@@ -70,7 +70,7 @@ function HomePage() {
               ) : null}
             </div>
             <div className={styles.inbox}>
-              <Inbox address={session.address} inboxUrl={inboxUrl} />
+              <Inbox inbox={inbox} inboxUrl={inboxUrl} />
             </div>
           </div>
         </div>
@@ -79,26 +79,42 @@ function HomePage() {
   );
 }
 
-function Inbox(props: { address: string; inboxUrl: string | null }) {
+function Inbox(props: {
+  inbox: FieldInstance | null;
+  inboxUrl: string | null;
+}) {
   return (
     <div>
       <h1>Your Inbox </h1>
-      {props.inboxUrl ? <InboxContent inboxUrl={props.inboxUrl!} /> : null}
+      {props.inboxUrl && props.inbox ? (
+        <InboxContent inbox={props.inbox!} inboxUrl={props.inboxUrl!} />
+      ) : null}
     </div>
   );
 }
 
-function InboxContent(props: { inboxUrl: string }) {
+function InboxContent(props: { inbox: FieldInstance; inboxUrl: string }) {
+  const getExtension = (blobType: string) => {
+    const parts = blobType.split("/");
+    const extension = parts.length > 0 ? parts[1] : "";
+    return extension;
+  };
   return (
-    <button
-      type="submit"
-      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-        window.open(props.inboxUrl)
-      }
-      className={styles.downloadbutton}
-    >
-      Download
-    </button>
+    <div className={styles.inboxcontent}>
+      <div>
+        inbox.{getExtension(props.inbox.blob().type)} |{" "}
+        {(props.inbox.blob().size / Math.pow(1024, 2)).toFixed(1)} MB
+      </div>
+      <button
+        type="submit"
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+          window.open(props.inboxUrl)
+        }
+        className={styles.downloadbutton}
+      >
+        Download
+      </button>
+    </div>
   );
 }
 

@@ -77,6 +77,14 @@
   font-size: 28px;
 }
 
+.inboxcontent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Adelle Sans";
+  font-size: 14px;
+}
+
 .uploadbutton,
 .uploadbutton-disabled {
   max-width: 322px;
