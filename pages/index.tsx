@@ -11,6 +11,7 @@ function HomePage() {
   const [inbox, setInbox] = useState<FieldInstance | null>(null);
   const [inboxUrl, setInboxUrl] = useState<string | null>(null);
   const [uploadedFile, setUpload] = useState<File | null>(null);
+  const [flush, setFlush] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchInboxFromPrivy() {
@@ -39,10 +40,23 @@ function HomePage() {
     return () => URL.revokeObjectURL(src);
   }, [inbox]);
 
+  // Play flushing sound on send.
+  useEffect(() => {
+    const flushSound = new Audio("/cropped_flush.mp3");
+    if (flush) {
+      console.log("Flushing");
+      flushSound.play();
+    }
+  }, [flush]);
+
   async function onSend(destinationAddress: string, file: File) {
     try {
       await session.privy.putFile(destinationAddress, "inbox", file);
       console.log("Successfully uploaded file");
+      setFlush(true);
+      setTimeout(() => {
+        setFlush(false);
+      }, 2000);
     } catch (e) {
       console.log(e);
     }
@@ -54,20 +68,21 @@ function HomePage() {
         <title> PrivyFlush </title>
       </Head>
       <main>
-        <div className={styles.toilet}></div>
+        <div className={flush ? styles.toiletflush : styles.toilet}></div>
         <div className={styles.outer}>
           <div className={styles.inner}>
             <div className={styles.logo}>
               <FlushLogo></FlushLogo>
             </div>
             <div className={styles.filebox}>
-              <UploadShow
-                address={session.address}
-                setUploadedFile={setUpload}
-              />
               {uploadedFile ? (
                 <SendShow uploadedFile={uploadedFile} onSend={onSend} />
-              ) : null}
+              ) : (
+                <UploadShow
+                  address={session.address}
+                  setUploadedFile={setUpload}
+                />
+              )}
             </div>
             <div className={styles.inbox}>
               <Inbox inbox={inbox} inboxUrl={inboxUrl} />
