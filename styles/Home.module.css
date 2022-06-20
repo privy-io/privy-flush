@@ -63,12 +63,15 @@
 }
 
 .filebox {
+  padding: 37px;
   border: 3px dashed white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 386px;
+  font-family: "Adelle Sans";
+  font-size: 14px;
 }
 
 .inbox {
@@ -80,6 +83,7 @@
   font-size: 14px;
 }
 
+.filebox h1,
 .inbox h1 {
   font-size: 28px;
 }
@@ -92,6 +96,7 @@
   font-size: 14px;
 }
 
+.sendbutton,
 .uploadbutton,
 .uploadbutton-disabled {
   max-width: 322px;
@@ -103,6 +108,11 @@
   color: #160b45;
   font-family: "Adelle Sans Semibold";
   font-size: 15px;
+}
+
+.sendbutton {
+  margin-top: 10px;
+  max-width: 127px;
 }
 
 .uploadbutton-disabled {
@@ -117,19 +127,38 @@
   color: white;
 }
 
+.sendtext,
+.destination,
 .downloadbutton,
 .signbutton {
-  border-radius: 5px;
+  display: inline-block;
   text-align: center;
   width: 100%;
   height: 41px;
-  border: 1px solid white;
+  line-height: 41px;
   background-color: transparent;
-  line-height: 1.1rem;
   vertical-align: middle;
   color: white;
   font-family: "Adelle Sans Semibold";
   font-size: 15px;
+}
+
+.destination,
+.downloadbutton,
+.signbutton {
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.sendcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  max-width: 322px;
+  font-family: "Adelle Sans";
+  font-size: 14px;
 }
 
 .downloadbutton {

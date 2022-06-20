@@ -160,24 +160,23 @@ function SendShow(props: {
 }) {
   const [destination, setDestination] = useState<string | null>(null);
   return (
-    <div>
-      <div>
-        <input
-          id="destination"
-          type="text"
-          placeholder="destination address"
-          onChange={(e) => setDestination(e.target.value)}
-        ></input>
-      </div>
-      <div>
-        <button
-          onClick={(e) => {
-            props.onSend(destination!, props.uploadedFile);
-          }}
-        >
-          Send
-        </button>
-      </div>
+    <div className={styles.sendcontainer}>
+      <div className={styles.sendtext}>Your file is ready to share!</div>
+      <input
+        id="destination"
+        type="text"
+        placeholder="<Enter the wallet address of the recipient>"
+        className={styles.destination}
+        onChange={(e) => setDestination(e.target.value)}
+      ></input>
+      <button
+        className={styles.sendbutton}
+        onClick={(e) => {
+          props.onSend(destination!, props.uploadedFile);
+        }}
+      >
+        Send
+      </button>
     </div>
   );
 }
