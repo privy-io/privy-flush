@@ -1,3 +1,4 @@
+.toiletflush,
 .toilet {
   position: fixed;
   left: -10vw;
@@ -6,10 +7,16 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("../assets/water.jpg");
-  animation: spin 120s infinite linear;
+  animation: spin 480s infinite linear;
   transform: translateY(-50%);
   transform-origin: center 0;
   top: 50%;
+  z-index: -1;
+}
+
+.toiletflush {
+  animation: spin 2s ease-in;
+  animation-iteration-count: infinite;
 }
 
 @keyframes spin {
@@ -17,7 +24,7 @@
     transform: rotate(0deg) translateY(-50%);
   }
   to {
-    transform: rotate(360deg) translateY(-50%);
+    transform: rotate(1440deg) translateY(-50%);
   }
 }
 
