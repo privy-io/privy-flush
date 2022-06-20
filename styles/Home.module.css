@@ -77,6 +77,14 @@
   font-size: 28px;
 }
 
+.inboxcontent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Adelle Sans";
+  font-size: 14px;
+}
+
 .uploadbutton,
 .uploadbutton-disabled {
   max-width: 322px;
@@ -102,11 +110,10 @@
   color: white;
 }
 
+.downloadbutton,
 .signbutton {
-  margin-top: 15px;
   border-radius: 5px;
   text-align: center;
-  max-width: 241px;
   width: 100%;
   height: 41px;
   border: 1px solid white;
@@ -118,6 +125,17 @@
   font-size: 15px;
 }
 
+.downloadbutton {
+  max-width: 157px;
+}
+
+.signbutton {
+  margin-top: 15px;
+  max-width: 241px;
+}
+
+.downloadbutton:hover,
+.downloadbutton:focus,
 .signbutton:hover,
 .signbutton:focus {
   border: none;

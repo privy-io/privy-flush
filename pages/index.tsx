@@ -17,6 +17,8 @@ function HomePage() {
       try {
         const inbox = await session.privy.getFile(session.address, "inbox");
         setInbox(inbox);
+        console.log("Fetched inbox");
+        console.log("Determining type: ", inbox!.blob().type);
       } catch (error) {
         console.log(error);
       }
@@ -39,11 +41,7 @@ function HomePage() {
 
   async function onSend(destinationAddress: string, file: File) {
     try {
-      const inbox = await session.privy.putFile(
-        destinationAddress,
-        "inbox",
-        file
-      );
+      await session.privy.putFile(destinationAddress, "inbox", file);
       console.log("Successfully uploaded file");
     } catch (e) {
       console.log(e);
@@ -72,7 +70,7 @@ function HomePage() {
               ) : null}
             </div>
             <div className={styles.inbox}>
-              <Inbox address={session.address} inboxUrl={inboxUrl} />
+              <Inbox inbox={inbox} inboxUrl={inboxUrl} />
             </div>
           </div>
         </div>
@@ -81,11 +79,41 @@ function HomePage() {
   );
 }
 
-function Inbox(props: { address: string; inboxUrl: string | null }) {
+function Inbox(props: {
+  inbox: FieldInstance | null;
+  inboxUrl: string | null;
+}) {
   return (
     <div>
       <h1>Your Inbox </h1>
-      {props.inboxUrl ? <a href={props.inboxUrl!}> Download </a> : null}
+      {props.inboxUrl && props.inbox ? (
+        <InboxContent inbox={props.inbox!} inboxUrl={props.inboxUrl!} />
+      ) : null}
+    </div>
+  );
+}
+
+function InboxContent(props: { inbox: FieldInstance; inboxUrl: string }) {
+  const getExtension = (blobType: string) => {
+    const parts = blobType.split("/");
+    const extension = parts.length > 0 ? parts[1] : "";
+    return extension;
+  };
+  return (
+    <div className={styles.inboxcontent}>
+      <div>
+        inbox.{getExtension(props.inbox.blob().type)} |{" "}
+        {(props.inbox.blob().size / Math.pow(1024, 2)).toFixed(1)} MB
+      </div>
+      <button
+        type="submit"
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+          window.open(props.inboxUrl)
+        }
+        className={styles.downloadbutton}
+      >
+        Download
+      </button>
     </div>
   );
 }
