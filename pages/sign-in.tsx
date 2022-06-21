@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
-import { useSession, isMetaMaskEnabled } from "../components/Session";
+import { useSession } from "../components/Session";
 import { useRouter } from "next/router";
-import FlushLogo from "../components/FlushLogo";
 import FileIcon from "../components/FileIcon";
 import SignIcon from "../components/SignIcon";
+import Layout from "../components/layout";
 
 export async function getStaticProps() {
   return {
@@ -17,7 +17,6 @@ export async function getStaticProps() {
 function SignIn() {
   const router = useRouter();
   const session = useSession();
-  const [signInError, setSignInError] = useState<Error | null>(null);
 
   function onSubmit() {
     function onSuccess() {
@@ -26,48 +25,42 @@ function SignIn() {
 
     function onFailure(error: Error) {
       console.error(error);
-      setSignInError(error);
     }
 
     session.authenticate().then(onSuccess, onFailure);
   }
 
   return (
-    <div>
-      <div className={styles.toilet}></div>
-      <div className={styles.outer}>
-        <div className={styles.inner}>
-          <div className={styles.logo}>
-            <FlushLogo></FlushLogo>
-          </div>
-          <div className={styles.filebox}>
-            <button className={styles["uploadbutton-disabled"]} disabled>
-              <FileIcon></FileIcon>
-              Select files to send
-            </button>
-          </div>
-          <div className={styles.inbox}>
-            <h1>Share files with PrivyFlush</h1>
-            <p className={styles.description}>
-              PrivyFlush allows you to share files with your friends. Everything
-              is encrypted end-to-end by default when using Privy so storing
-              data securely is as simple as a single API call.
-            </p>
-            <p>To view files that have been sent to you, sign in below!</p>
-            <button
-              className={styles.signbutton}
-              onClick={(e) => {
-                e.preventDefault();
-                onSubmit();
-              }}
-            >
-              Sign In With Ethereum
-              <SignIcon></SignIcon>
-            </button>
-          </div>
-        </div>
+    <Layout>
+      <div className={styles.formBox}>
+        <button className={styles["uploadbutton-disabled"]} disabled>
+          <FileIcon></FileIcon>
+          Select files to send
+        </button>
       </div>
-    </div>
+      <div className={styles.inbox}>
+        <h1>Share files with PrivyFlush</h1>
+        <p>
+          PrivyFlush allows you to share files with your friends, by sending
+          them to an ethereum address. Only the owner of the address can view
+          the file.
+          <br />
+          Everything is encrypted end-to-end client side by default, and Privy
+          is storing ciphertext data securely.
+        </p>
+        <p>To view your inbox, sign in below!</p>
+        <button
+          className={styles.signbutton}
+          onClick={(e) => {
+            e.preventDefault();
+            onSubmit();
+          }}
+        >
+          Sign In With Ethereum
+          <SignIcon></SignIcon>
+        </button>
+      </div>
+    </Layout>
   );
 }
 

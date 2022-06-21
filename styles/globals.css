@@ -3,12 +3,9 @@
 }
 
 body {
+  font-family: "Adelle Sans";
   background-color: white;
   color: #282c34;
-}
-
-h1 {
-  font-weight: bold;
 }
 
 main {
@@ -35,26 +32,36 @@ label {
   font-family: "Adelle Sans Semibold";
   src: url("/fonts/AdelleSans-Semibold.woff2") format("woff2"),
     url("/fonts/AdelleSans-Semibold.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+  font-weight: bold;
   font-display: swap;
 }
 
 button {
   font-family: inherit; /* For all browsers */
-  font-size: 100%; /* For all browsers */
-  line-height: 1.15; /* For all browsers */
+  font-size: 22px; /* For all browsers */
   margin: 0; /* Firefox and Safari have margin */
   overflow: visible; /* Edge hides overflow */
   text-transform: none; /* Firefox inherits text-transform */
   -webkit-appearance: button; /* Safari otherwise prevents some styles */
-  transition: 250ms ease-in-out, transform 150ms ease;
+  transition: 150ms ease-in-out, transform 100ms ease;
   cursor: pointer;
   border: none;
+
+  border-radius: 5px;
+  color: #160b45;
+  background-color: #ff8271;
+  border: 1px solid #ff8271;
+  padding: 8px 16px;
+  margin: 16px;
+}
+
+button:hover {
+  color: #fff;
+  border: 1px solid #fff;
 }
 
 button:focus {
-  outline: 1px solid #fff;
+  border: 1px solid #fff;
   outline-offset: -4px;
 }
 

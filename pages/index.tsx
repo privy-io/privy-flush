@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 import { FieldInstance } from "@privy-io/privy-browser";
 import { useSession } from "../components/Session";
 import styles from "../styles/Home.module.css";
-import FlushLogo from "../components/FlushLogo";
 import FileIcon from "../components/FileIcon";
+import Layout from "../components/layout";
 
 function HomePage() {
   const session = useSession();
   const [inbox, setInbox] = useState<FieldInstance | null>(null);
-  const [inboxUrl, setInboxUrl] = useState<string | null>(null);
+  const [inboxUrl, setInboxUrl] = useState<string>("");
   const [uploadedFile, setUpload] = useState<File | null>(null);
   const [flush, setFlush] = useState<boolean>(false);
 
@@ -49,104 +48,65 @@ function HomePage() {
 
   async function onSend(destinationAddress: string, file: File) {
     try {
-      const result = await session.privy.putFile(
-        destinationAddress,
-        "inbox",
-        file
-      );
-
       setFlush(true);
       setTimeout(() => {
         setFlush(false);
       }, 4000);
+      await session.privy.putFile(destinationAddress, "inbox", file);
     } catch (e) {
       console.log(e);
     }
   }
 
   return (
-    <div>
-      <Head>
-        <title> PrivyFlush </title>
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚽</text></svg>"
-        />
-      </Head>
-      <main>
-        <div className={flush ? styles.toiletflush : styles.toilet}></div>
-        <div className={styles.outer}>
-          <div className={styles.inner}>
-            <div className={styles.logo}>
-              <FlushLogo></FlushLogo>
-            </div>
-            <div className={styles.filebox}>
-              {uploadedFile ? (
-                <SendShow uploadedFile={uploadedFile} onSend={onSend} />
-              ) : (
-                <UploadShow
-                  address={session.address}
-                  setUploadedFile={setUpload}
-                />
-              )}
-            </div>
-            <div className={styles.inbox}>
-              <Inbox inbox={inbox} inboxUrl={inboxUrl} />
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+    <Layout backgroundClass={flush ? styles.toiletflush : styles.toilet}>
+      <div className={styles.formBox}>
+        {uploadedFile ? (
+          <SendForm uploadedFile={uploadedFile} onSend={onSend} />
+        ) : (
+          <UploadForm address={session.address} setUploadedFile={setUpload} />
+        )}
+      </div>
+      <div className={styles.inbox}>
+        <Inbox inbox={inbox} inboxUrl={inboxUrl} />
+      </div>
+    </Layout>
   );
 }
 
-function Inbox(props: {
-  inbox: FieldInstance | null;
-  inboxUrl: string | null;
-}) {
-  return (
-    <div>
-      <h1>Your Inbox </h1>
-      {props.inboxUrl && props.inbox ? (
-        <InboxContent inbox={props.inbox!} inboxUrl={props.inboxUrl!} />
-      ) : null}
-    </div>
-  );
-}
-
-function InboxContent(props: { inbox: FieldInstance; inboxUrl: string }) {
+function Inbox(props: { inbox: FieldInstance | null; inboxUrl?: string }) {
   const getExtension = (blobType: string) => {
     const parts = blobType.split("/");
     const extension = parts.length > 0 ? parts[1] : "";
     return extension;
   };
   return (
-    <div className={styles.inboxcontent}>
-      <div>
-        inbox.{getExtension(props.inbox.blob().type)} |{" "}
-        {(props.inbox.blob().size / Math.pow(1024, 2)).toFixed(1)} MB
-      </div>
-      <button
-        type="submit"
-        onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-          window.open(props.inboxUrl)
-        }
-        className={styles.downloadbutton}
-      >
-        Download
-      </button>
+    <div>
+      <h1>Your Inbox </h1>
+      {props.inboxUrl && props.inbox ? (
+        <div className={styles.inboxcontent}>
+          <div>inbox.{getExtension(props.inbox.blob().type)}</div>
+          <button
+            type="submit"
+            onClick={() => window.open(props.inboxUrl)}
+            className={styles.downloadbutton}
+          >
+            Download
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
 
-function UploadShow(props: {
+function UploadForm(props: {
   address: string;
   setUploadedFile: (file: File) => void;
 }) {
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files || new FileList();
     const file = fileList[0] || null;
-    await props.setUploadedFile(file);
+    props.setUploadedFile(file);
   };
 
   return (
@@ -160,7 +120,7 @@ function UploadShow(props: {
   );
 }
 
-function SendShow(props: {
+function SendForm(props: {
   uploadedFile: File;
   onSend: (destination: string, file: File) => void;
 }) {
@@ -171,7 +131,7 @@ function SendShow(props: {
       <input
         id="destination"
         type="text"
-        placeholder="<Enter the wallet address of the recipient>"
+        placeholder="Recipient wallet address"
         className={styles.destination}
         onChange={(e) => setDestination(e.target.value)}
       ></input>
