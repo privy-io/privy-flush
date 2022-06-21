@@ -18,12 +18,11 @@ function HomePage() {
       try {
         const inbox = await session.privy.getFile(session.address, "inbox");
         setInbox(inbox);
-        console.log("Fetched inbox");
-        console.log("Determining type: ", inbox!.blob().type);
       } catch (error) {
         console.log(error);
       }
     }
+
     fetchInboxFromPrivy();
   }, [session]);
 
@@ -44,19 +43,22 @@ function HomePage() {
   useEffect(() => {
     const flushSound = new Audio("/cropped_flush.mp3");
     if (flush) {
-      console.log("Flushing");
       flushSound.play();
     }
   }, [flush]);
 
   async function onSend(destinationAddress: string, file: File) {
     try {
-      await session.privy.putFile(destinationAddress, "inbox", file);
-      console.log("Successfully uploaded file");
+      const result = await session.privy.putFile(
+        destinationAddress,
+        "inbox",
+        file
+      );
+
       setFlush(true);
       setTimeout(() => {
         setFlush(false);
-      }, 2000);
+      }, 4000);
     } catch (e) {
       console.log(e);
     }
@@ -66,6 +68,10 @@ function HomePage() {
     <div>
       <Head>
         <title> PrivyFlush </title>
+        <link
+          rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚽</text></svg>"
+        />
       </Head>
       <main>
         <div className={flush ? styles.toiletflush : styles.toilet}></div>
