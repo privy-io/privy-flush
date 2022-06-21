@@ -177,7 +177,7 @@ function SendShow(props: {
       ></input>
       <button
         className={styles.sendbutton}
-        onClick={(e) => {
+        onClick={() => {
           props.onSend(destination!, props.uploadedFile);
         }}
       >
