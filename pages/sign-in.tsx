@@ -42,13 +42,14 @@ function SignIn() {
         <h1>Share files with PrivyFlush</h1>
         <p>
           PrivyFlush allows you to share files with your friends, by sending
-          them to an ethereum address. Only the owner of the address can view
-          the file.
+          them to an ethereum address.
+        </p>
+        <p>
+          Only the owner of the address can view the file.
           <br />
           Everything is encrypted end-to-end client side by default, and Privy
           is storing ciphertext data securely.
         </p>
-        <p>To view your inbox, sign in below!</p>
         <button
           className={styles.signbutton}
           onClick={(e) => {

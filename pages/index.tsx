@@ -58,6 +58,12 @@ function HomePage() {
     }
   }
 
+  const getExtension = (blobType: string) => {
+    const parts = blobType.split("/");
+    const extension = parts.length > 0 ? parts[1] : "";
+    return extension;
+  };
+
   return (
     <Layout backgroundClass={flush ? styles.toiletflush : styles.toilet}>
       <div className={styles.formBox}>
@@ -68,34 +74,26 @@ function HomePage() {
         )}
       </div>
       <div className={styles.inbox}>
-        <Inbox inbox={inbox} inboxUrl={inboxUrl} />
+        <div className={styles.flexRow}>
+          <h1>Your Inbox </h1>
+          <div className={styles.ethAddressWrapper}>
+            <p className={styles.ethAddress}>{session.address.slice(0, 7)}</p>
+          </div>
+        </div>
+        {inboxUrl && inbox ? (
+          <div className={styles.inboxcontent}>
+            <div>inbox.{getExtension(inbox.blob().type)}</div>
+            <button
+              type="submit"
+              onClick={() => window.open(inboxUrl)}
+              className={styles.downloadbutton}
+            >
+              Download
+            </button>
+          </div>
+        ) : null}
       </div>
     </Layout>
-  );
-}
-
-function Inbox(props: { inbox: FieldInstance | null; inboxUrl?: string }) {
-  const getExtension = (blobType: string) => {
-    const parts = blobType.split("/");
-    const extension = parts.length > 0 ? parts[1] : "";
-    return extension;
-  };
-  return (
-    <div>
-      <h1>Your Inbox </h1>
-      {props.inboxUrl && props.inbox ? (
-        <div className={styles.inboxcontent}>
-          <div>inbox.{getExtension(props.inbox.blob().type)}</div>
-          <button
-            type="submit"
-            onClick={() => window.open(props.inboxUrl)}
-            className={styles.downloadbutton}
-          >
-            Download
-          </button>
-        </div>
-      ) : null}
-    </div>
   );
 }
 
@@ -131,6 +129,7 @@ function SendForm(props: {
       <input
         id="destination"
         type="text"
+        autoComplete="off"
         placeholder="Recipient wallet address"
         className={styles.destination}
         onChange={(e) => setDestination(e.target.value)}

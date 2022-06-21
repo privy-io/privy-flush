@@ -21,6 +21,14 @@
 .inbox {
   border: 2px solid white;
   max-width: 490px;
+  display: flex;
+  flex-direction: column;
+}
+
+.flexRow {
+  display: flex;
+  direction: row;
+  justify-content: space-between;
 }
 
 .inbox h1 {
@@ -28,10 +36,15 @@
   font-family: "Adelle Sans Semibold";
 }
 
+.inbox p {
+  margin: none;
+}
+
 .inboxcontent {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 48px;
 }
 
 .uploadbutton-disabled {
@@ -50,6 +63,7 @@
 
 .formBox input::placeholder {
   color: #160b45;
+  opacity: 0.7;
 }
 
 .sendtext,
@@ -72,6 +86,13 @@
   top: 3px;
   display: inline-block;
   color: inherit;
+}
+
+.ethAddress {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  padding: 10px;
 }
 
 .toiletflush {
