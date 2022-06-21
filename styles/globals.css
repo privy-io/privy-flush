@@ -13,6 +13,14 @@ main {
   margin: 0 auto;
 }
 
+a {
+  color: #fff;
+}
+
+a:hover {
+  color: #ff8271;
+}
+
 label {
   display: block;
   padding: 3px 0;
@@ -38,7 +46,7 @@ label {
 
 button {
   font-family: inherit; /* For all browsers */
-  font-size: 22px; /* For all browsers */
+  font-size: 18px; /* For all browsers */
   margin: 0; /* Firefox and Safari have margin */
   overflow: visible; /* Edge hides overflow */
   text-transform: none; /* Firefox inherits text-transform */

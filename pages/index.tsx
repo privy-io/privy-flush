@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FieldInstance } from "@privy-io/privy-browser";
-import { useSession } from "../components/Session";
+import { useSession, SignOutLink } from "../components/Session";
 import styles from "../styles/Home.module.css";
 import FileIcon from "../components/FileIcon";
 import Layout from "../components/layout";
@@ -53,6 +53,7 @@ function HomePage() {
         setFlush(false);
       }, 4000);
       await session.privy.putFile(destinationAddress, "inbox", file);
+      await session.privy.put(destinationAddress, "message", "hello world");
     } catch (e) {
       console.log(e);
     }
@@ -78,6 +79,9 @@ function HomePage() {
           <h1>Your Inbox </h1>
           <div className={styles.ethAddressWrapper}>
             <p className={styles.ethAddress}>{session.address.slice(0, 7)}</p>
+          </div>
+          <div className={styles.flexCol}>
+            <SignOutLink />
           </div>
         </div>
         {inboxUrl && inbox ? (

@@ -172,14 +172,16 @@ export function SignOutLink() {
   const session = useSession();
 
   return (
-    <a
-      href="/sign-out"
-      onClick={(e) => {
-        e.preventDefault();
-        session.destroy().then(() => router.push("/sign-in"));
-      }}
-    >
-      Sign out
-    </a>
+    <div>
+      <a
+        href="/sign-out"
+        onClick={(e) => {
+          e.preventDefault();
+          session.destroy().then(() => router.push("/sign-in"));
+        }}
+      >
+        Sign out
+      </a>
+    </div>
   );
 }

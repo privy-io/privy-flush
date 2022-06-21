@@ -25,10 +25,20 @@
   flex-direction: column;
 }
 
+.flexCol {
+  display: flex;
+  direction: column;
+  align-items: center;
+}
+
 .flexRow {
   display: flex;
   direction: row;
   justify-content: space-between;
+}
+
+.signoutLink a {
+  padding: 16px;
 }
 
 .inbox h1 {
