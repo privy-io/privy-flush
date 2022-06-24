@@ -31,29 +31,28 @@ function HomePage() {
       return;
     }
 
-    const src = URL.createObjectURL(inbox.blob());
-    setInboxUrl(src);
+    const objectUrl = URL.createObjectURL(inbox.blob());
+    setInboxUrl(objectUrl);
 
     // Cleanup url after use
-    return () => URL.revokeObjectURL(src);
+    return () => URL.revokeObjectURL(objectUrl);
   }, [inbox]);
-
-  // Play flushing sound on send.
-  useEffect(() => {
-    const flushSound = new Audio("/cropped_flush.mp3");
-    if (flush) {
-      flushSound.play();
-    }
-  }, [flush]);
 
   async function onSend(destinationAddress: string, file: File) {
     try {
+      // Ignore this, it's for fun sound effects
       setFlush(true);
       setTimeout(() => {
         setFlush(false);
       }, 4000);
+
+      // ****************
+      // Privy writes
+      // ****************
       await session.privy.putFile(destinationAddress, "inbox", file);
-      await session.privy.put(destinationAddress, "message", "hello world");
+      // ****************
+      // end Privy writes
+      // ****************
     } catch (e) {
       console.log(e);
     }
@@ -64,6 +63,14 @@ function HomePage() {
     const extension = parts.length > 0 ? parts[1] : "";
     return extension;
   };
+
+  // Play flushing sound on send.
+  useEffect(() => {
+    const flushSound = new Audio("/cropped_flush.mp3");
+    if (flush) {
+      flushSound.play();
+    }
+  }, [flush]);
 
   return (
     <Layout backgroundClass={flush ? styles.toiletflush : styles.toilet}>

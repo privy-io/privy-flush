@@ -40,23 +40,11 @@ const NodeMockProvider = {
 /**
  * The session object wraps the Privy SiweSession object
  * to provide synchronous helpers which makes checking
- * session state much easier when rendering components,
- * at the expense of possibly becoming stale (i.e., out
- * of sync with the user's wallet and/or with Privy
- * server).
+ * session state much easier.  *
  *
  * It also exposes an instance of the Privy client,
- * configured with the SiweSession. This way, the
- * session state and privy client are bundled together
- * and exposed to the rest of the application via a
- * react hook.
- *
- * NOTE: for the purposes of this demo, the session
- * object is simplified. Notably, it caches state that
- * can become stale if the user disconnects their wallet
- * or switches wallet addresses. A real-world session
- * would want to listen for these events on the wallet
- * and respond accordingly.
+ * auth'd with the SiweSession. This way, the session state
+ * and privy client are bundled together in a react hook.
  */
 class Session {
   private siwe: SiweSession;
@@ -80,8 +68,6 @@ class Session {
 
   /**
    * A cached reference to the user's connected wallet address.
-   * It can become stale if the user switches wallet addresses
-   * or disconnects their wallet.
    */
   get address() {
     if (this._address === null) {
@@ -93,23 +79,14 @@ class Session {
 
   /**
    * Whether or not the user is currently authenticated.
-   *
-   * Note: This just checks the cached address and hence has
-   * the same problems as described for the `address` accessor.
-   * Additionally, this can become stale if the Privy access
-   * token expires.
    */
   get authenticated() {
     return this._address !== null;
   }
 
   /**
-   * Initialize the session. Privy's SiweSession object
-   * will store session state in localStorage so that
-   * loading the page in other tabs or page refreshes
-   * can reuse active access tokens rather than making
-   * the user re-sign/re-authenticate every time the page
-   * is loaded.
+   * Initialize the session. Privy's SiweSession object will
+   * store session state in localStorage for smooth reuse.
    */
   async initialize() {
     const authenticated = await this.siwe.isAuthenticated();
@@ -157,8 +134,7 @@ const SessionContext = createContext<Session>(
 );
 
 /**
- * A React hook for ease of working with the session
- * in React components.
+ * A React hook for ease of working with the session in React components.
  */
 export function useSession() {
   return useContext(SessionContext);
