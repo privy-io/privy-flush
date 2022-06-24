@@ -105,6 +105,11 @@
   padding: 10px;
 }
 
+.errorMsg {
+  margin-top: 18px;
+  color: #ff8271;
+}
+
 .toiletflush {
   position: fixed;
   left: -10vw;

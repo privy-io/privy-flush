@@ -10,6 +10,7 @@ function HomePage() {
   const [inbox, setInbox] = useState<FieldInstance | null>(null);
   const [inboxUrl, setInboxUrl] = useState<string>("");
   const [uploadedFile, setUpload] = useState<File | null>(null);
+  const [errorMsg, setErrorMsg] = useState<String>("");
   const [flush, setFlush] = useState<boolean>(false);
 
   useEffect(() => {
@@ -50,19 +51,15 @@ function HomePage() {
       // Privy writes
       // ****************
       await session.privy.putFile(destinationAddress, "inbox", file);
+      await session.privy.put(destinationAddress, "message", "Hello, world");
       // ****************
       // end Privy writes
       // ****************
     } catch (e) {
-      console.log(e);
+      // @ts-ignore
+      setErrorMsg(e.message);
     }
   }
-
-  const getExtension = (blobType: string) => {
-    const parts = blobType.split("/");
-    const extension = parts.length > 0 ? parts[1] : "";
-    return extension;
-  };
 
   // Play flushing sound on send.
   useEffect(() => {
@@ -80,6 +77,7 @@ function HomePage() {
         ) : (
           <UploadForm address={session.address} setUploadedFile={setUpload} />
         )}
+        {errorMsg && <div className={styles.errorMsg}>Error: {errorMsg}</div>}
       </div>
       <div className={styles.inbox}>
         <div className={styles.flexRow}>
@@ -92,17 +90,23 @@ function HomePage() {
           </div>
         </div>
         {inboxUrl && inbox ? (
-          <div className={styles.inboxcontent}>
-            <div>inbox.{getExtension(inbox.blob().type)}</div>
-            <button
-              type="submit"
-              onClick={() => window.open(inboxUrl)}
-              className={styles.downloadbutton}
-            >
-              Download
-            </button>
+          <>
+            <div className={styles.inboxcontent}>
+              <div>You got mail!</div>
+              <button
+                type="submit"
+                onClick={() => window.open(inboxUrl)}
+                className={styles.downloadbutton}
+              >
+                Download
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className={styles.indoxcontent}>
+            <div>Your inbox is empty</div>
           </div>
-        ) : null}
+        )}
       </div>
     </Layout>
   );
