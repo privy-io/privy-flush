@@ -51,7 +51,6 @@ function HomePage() {
       // Privy writes
       // ****************
       await session.privy.putFile(destinationAddress, "inbox", file);
-      await session.privy.put(destinationAddress, "message", "Hello, world");
       // ****************
       // end Privy writes
       // ****************
