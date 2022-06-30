@@ -3,7 +3,7 @@ import { FieldInstance } from "@privy-io/privy-browser";
 import { useSession, SignOutLink } from "../components/Session";
 import styles from "../styles/Home.module.css";
 import FileIcon from "../components/FileIcon";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 
 function HomePage() {
   const session = useSession();
