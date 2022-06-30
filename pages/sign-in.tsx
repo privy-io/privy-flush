@@ -4,7 +4,7 @@ import { useSession } from "../components/Session";
 import { useRouter } from "next/router";
 import FileIcon from "../components/FileIcon";
 import SignIcon from "../components/SignIcon";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 
 export async function getStaticProps() {
   return {
