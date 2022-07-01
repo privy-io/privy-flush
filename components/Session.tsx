@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useRouter } from "next/router";
 import { PrivyClient, SiweSession } from "@privy-io/privy-browser";
-import { PRIVY_API_KEY, PRIVY_KMS_HOST, PRIVY_API_HOST } from "../config";
+import { PRIVY_API_KEY } from "../config";
 
 export function isMetaMaskEnabled() {
   return !!(
@@ -49,17 +49,9 @@ class Session {
   privy: PrivyClient;
 
   constructor(provider: any) {
-    console.log("Setting up session: ");
-    console.log(PRIVY_API_HOST);
-    console.log(PRIVY_API_KEY);
-
-    this.siwe = new SiweSession(PRIVY_API_KEY, provider, {
-      baseURL: PRIVY_API_HOST,
-    });
+    this.siwe = new SiweSession(PRIVY_API_KEY, provider);
 
     this.privy = new PrivyClient({
-      apiURL: PRIVY_API_HOST,
-      kmsURL: PRIVY_KMS_HOST,
       session: this.siwe,
     });
 
