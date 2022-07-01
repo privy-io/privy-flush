@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import Head from "next/head";
 import FlushLogo from "./FlushLogo";
 import styles from "../styles/Layout.module.css";
-
 interface Props {
   backgroundClass?: string;
   children: React.ReactNode;
@@ -20,9 +19,19 @@ const Layout: FC<Props> = ({ children, backgroundClass }) => {
       </Head>
       <main>
         {backgroundClass ? (
-          <div className={backgroundClass}></div>
+          <div
+            style={{
+              background: `url(${process.env.NEXT_PUBLIC_BASE_PATH}/water.jpg)`,
+            }}
+            className={backgroundClass}
+          ></div>
         ) : (
-          <div className={styles.toilet}></div>
+          <div
+            className={styles.toilet}
+            style={{
+              background: `url(${process.env.NEXT_PUBLIC_BASE_PATH}/water.jpg)`,
+            }}
+          ></div>
         )}
 
         <div className={styles.outer}>

@@ -33,7 +33,7 @@
   height: 120vw;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("/water.jpg");
+  /* background-image: url("/water.jpg"); */
   animation: spin 480s infinite linear;
   transform: translateY(-50%);
   transform-origin: center 0;
