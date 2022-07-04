@@ -50,8 +50,11 @@ function SignIn() {
           Everything is encrypted end-to-end client side by default, and Privy
           is storing ciphertext data securely.
         </p>
+        <p>
+          This shows how you can build something similar to wormhole.app on top
+          of Privy's platform.
+        </p>
         <button
-          className={styles.signbutton}
           onClick={(e) => {
             e.preventDefault();
             onSubmit();
