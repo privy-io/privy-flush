@@ -44,10 +44,13 @@
 .inbox h1 {
   font-size: 28px;
   font-family: "Adelle Sans Semibold";
+  margin-top: 0px;
+  margin-bottom: 15px;
 }
 
 .inbox p {
-  margin: none;
+  margin-top: 0px;
+  margin-bottom: 15px;
 }
 
 .inboxcontent {
