@@ -41,18 +41,18 @@ function SignIn() {
       <div className={styles.inbox}>
         <h1>Share files with PrivyFlush</h1>
         <p>
-          PrivyFlush allows you to share files with your friends, by sending
-          them to an ethereum address.
+          PrivyFlush allows you to share files with your friends via their
+          ethereum address.
         </p>
         <p>
-          Only the owner of the address can view the file.
-          <br />
-          Everything is encrypted end-to-end client side by default, and Privy
-          is storing ciphertext data securely.
+          Everything is encrypted end-to-end client side and only the owner of
+          the address can view the file.
         </p>
         <p>
-          This shows how you can build something similar to wormhole.app on top
-          of Privy's platform.
+          This shows how you can build something similar to
+          <a href="https://wormhole.app/"> wormhole.app</a> on top of
+          {" Privy's "}
+          platform.
         </p>
         <button
           onClick={(e) => {
