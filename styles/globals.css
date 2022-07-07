@@ -29,8 +29,8 @@ label {
 
 @font-face {
   font-family: "Adelle Sans";
-  src: url("/fonts/AdelleSans-Regular.woff2") format("woff2"),
-    url("/fonts/AdelleSans-Regular.woff") format("woff");
+  src: url("../public/fonts/AdelleSans-Regular.woff2") format("woff2"),
+    url("../public/fonts/AdelleSans-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -38,8 +38,8 @@ label {
 
 @font-face {
   font-family: "Adelle Sans Semibold";
-  src: url("/fonts/AdelleSans-Semibold.woff2") format("woff2"),
-    url("/fonts/AdelleSans-Semibold.woff") format("woff");
+  src: url("../public/fonts/AdelleSans-Semibold.woff2") format("woff2"),
+    url("../public/fonts/AdelleSans-Semibold.woff") format("woff");
   font-weight: bold;
   font-display: swap;
 }
