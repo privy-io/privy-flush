@@ -102,7 +102,7 @@ function HomePage() {
             </div>
           </>
         ) : (
-          <div className={styles.indoxcontent}>
+          <div className={styles.inboxcontent}>
             <div>Your inbox is empty</div>
           </div>
         )}
