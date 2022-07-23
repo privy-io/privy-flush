@@ -8,6 +8,7 @@ import Layout from "../components/Layout";
 function HomePage() {
   const session = useSession();
   const [inbox, setInbox] = useState<FieldInstance | null>(null);
+  const [message, setMessage] = useState<string>("");
   const [inboxUrl, setInboxUrl] = useState<string>("");
   const [uploadedFile, setUpload] = useState<File | null>(null);
   const [errorMsg, setErrorMsg] = useState<String>("");
@@ -17,7 +18,11 @@ function HomePage() {
     async function fetchInboxFromPrivy() {
       try {
         const inbox = await session.privy.getFile(session.address, "inbox");
+        const message = await session.privy.get(session.address, "message");
         setInbox(inbox);
+        if (message) {
+          setMessage(message.text());
+        }
       } catch (error) {
         console.log(error);
       }
@@ -51,6 +56,11 @@ function HomePage() {
       // Privy writes
       // ****************
       await session.privy.putFile(destinationAddress, "inbox", file);
+      await session.privy.put(
+        destinationAddress,
+        "message",
+        "Hello from EthCC"
+      );
       // ****************
       // end Privy writes
       // ****************
@@ -106,6 +116,7 @@ function HomePage() {
             <div>Your inbox is empty</div>
           </div>
         )}
+        {message && <div> {message}</div>}
       </div>
     </Layout>
   );

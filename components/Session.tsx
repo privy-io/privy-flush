@@ -49,10 +49,14 @@ class Session {
   privy: PrivyClient;
 
   constructor(provider: any) {
-    this.siwe = new SiweSession(PRIVY_API_KEY, provider);
+    this.siwe = new SiweSession(PRIVY_API_KEY, provider, {
+      baseURL: "http://localhost:2424/v0",
+    });
 
     this.privy = new PrivyClient({
       session: this.siwe,
+      apiURL: "http://localhost:2424/v0",
+      kmsURL: "http://localhost:2424/v0",
     });
 
     this._address = null;
